@@ -4,25 +4,34 @@ version: 2.1
 executors:
   debian:
     docker:
-      - image: debian:stretch
+      - image: debian:stretch-slim
+      # - image: circleci/python:stretch
 
 commands:
   save-workspace:
     steps:
       - persist_to_workspace:
-          root: .
+          root: ~/
           paths:
-            - ./
+            - .ssh/
+            - project/
 
   restore-workspace:
     steps:
       - attach_workspace:
-          at: .
+          at: ~/
 
 jobs:
   test:
     executor: debian
     steps:
+      - run:
+          name: install openssh and git
+          command: |
+            apt-get -qy update
+            apt-get -qy --no-install-recommends install \
+              git \
+              openssh-client
       - checkout
       - run:
           name: install luacheck
@@ -42,8 +51,19 @@ jobs:
   build:
     executor: debian
     steps:
+      - run:
+          name: install dependencies
+          command: |
+            apt-get -qy update
+            apt-get -qy --no-install-recommends install \
+              zip \
+              make \
+              curl \
+              python \
+              python-pip \
+              ca-certificates
       - restore-workspace
-      - run: make build-deps-docs
+      - run: make deps-docs
       - run: make build-docs
       - run: make build-zip
       - save-workspace
@@ -51,11 +71,37 @@ jobs:
   release:
     executor: debian
     steps:
+      - add_ssh_keys
+      - run:
+          name: install dependencies
+          command: |
+            apt-get -qy update
+            apt-get -qy --no-install-recommends install \
+              git \
+              openssh-client \
+              ca-certificates
       - restore-workspace
       - run:
           name: commit and push release artifacts back to github
           command: |
-            echo TODO
+            git config --global user.email "circleci@joemiller.me"
+            git config --global user.name "Circle-CI"
+
+            git checkout $CIRCLE_BRANCH
+
+            if git diff-index --quiet HEAD -- ; then
+              echo "No changes. Skipping release."
+              exit 0
+            fi
+
+            # only commit changes to the required artifacts for the SpoonInstall-compatible repo
+            git add          \
+              ./docs         \
+              ./Spoons       \
+              ./Source/*/docs*
+            git status
+            git commit -m 'circleci: new release'
+            git push -u origin $CIRCLE_BRANCH
 
 workflows:
     main:
@@ -71,4 +117,5 @@ workflows:
               branches:
                 only:
                   - master
+                  - initial-ci
                   - release-test

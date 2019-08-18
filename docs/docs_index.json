@@ -5,7 +5,7 @@
     "type": "Module"
   },
   {
-    "desc": "Table containing tasks and their configuration options. Each action is itself a table with the following keys:",
+    "desc": "Table containing tasks and their configuration options. Each task is itself a table with the following keys:",
     "module": "TaskHammer",
     "name": "tasks",
     "type": "Variable"
