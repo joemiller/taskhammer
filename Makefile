@@ -1,16 +1,19 @@
-test:
-	echo TODO
+lint: ## run luacheck linter
+	luacheck Source/TaskHammer.spoon/*.lua
 
-deps-docs: ## install dependencies for building documentation into .tmp/
+test: ## run tests
+	echo "TODO: implement unit tests"
+
+build-zip: ## generate ./Spoons/TaskHammer.spoon.zip
+	cd Source && \
+		zip -r ../Spoons/TaskHammer.spoon.zip TaskHammer.spoon
+
+build-deps-docs: ## install dependencies for building documentation into .tmp/
 	pip install --user -r https://raw.githubusercontent.com/Hammerspoon/hammerspoon/master/requirements.txt
 	rm -rf .tmp
 	mkdir .tmp
 	curl -sL https://github.com/Hammerspoon/hammerspoon/tarball/master \
 		| tar -C .tmp --strip-components=1 -xvzf - '*/scripts/docs'
-
-build-zip: ## generate ./Spoons/TaskHammer.spoon.zip
-	cd Source && \
-		zip -r ../Spoons/TaskHammer.spoon.zip TaskHammer.spoon
 
 build-docs:: build-spoon-docs
 build-docs:: build-repo-docs
