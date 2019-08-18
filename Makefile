@@ -1,5 +1,8 @@
+lint:
+	luacheck Source/TaskHammer.spoon/*.lua
+
 test:
-	echo TODO
+	echo "TODO: implement unit tests"
 
 deps-docs: ## install dependencies for building documentation into .tmp/
 	pip install --user -r https://raw.githubusercontent.com/Hammerspoon/hammerspoon/master/requirements.txt
@@ -36,6 +39,9 @@ build-repo-docs: ## generate the ./docs directory to make this repo compatible w
 		./Source
 	rm -rf -- ./docs
 	mv ./docs-tmp ./docs
+
+build-docker-ci-image:
+	docker build -t joemiller/taskhammer-lua-ci -f .circleci/Dockerfile
 
 todo:
 	@grep \

@@ -1,0 +1,81 @@
+---
+version: 2.1
+
+executors:
+  debian:
+    docker:
+      - image: circleci/buildpack-deps:stretch-curl
+
+commands:
+  save-workspace:
+    steps:
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./
+
+    restore-workspace:
+      steps:
+        - attach_workspace:
+            at: .
+
+
+jobs:
+  lint:
+    executor: debian
+    steps:
+      - checkout
+      - run:
+          name: install luacheck
+          command: |
+            sudo apt-get -qy update
+            sudo apt-get -qy --no-install-recommends install \
+              lua5.3 \
+              lua5.3-dev \
+              luarocks
+            sudo luarocks install luacheck
+      - run: make lint
+      - save-workspace
+
+  test:
+    executor: debian
+    steps:
+      - restore-workspace
+      - run: make test
+      - save-workspace
+
+  build:
+    executor: debian
+    steps:
+      - restore-workspace
+      - run: make deps-docs
+      - run: make build-docs
+      - run: make build-zip
+      - save-workspace
+
+  release:
+    executor: debian
+    steps:
+      - restore-workspace
+      - run:
+          name: commit and push release artifacts back to github
+          command: |
+            echo TODO
+
+workflows:
+    main:
+      jobs:
+        - lint
+        - test:
+            requires:
+              - lint
+        - build:
+            requires:
+              - test
+        - release:
+            requires:
+              - build
+            filters:
+              branches:
+                - master
+                - release-test
