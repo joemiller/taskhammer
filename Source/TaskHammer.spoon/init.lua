@@ -156,9 +156,8 @@ function obj:menuItems()
                                                 "<pre>** Exit Code **:\n" ..
                                                     exitcode ..
                                                         "</pre>" ..
-                                                            "<pre>** Duration (minutes) **:\n" ..
-                                                                string.format("%.2f", (task.lastDuration / 60)) ..
-                                                                    "</pre>"
+                                                            "<pre>** Duration (HH:MM:SS) **:\n" ..
+                                                                self.secondsToClock(task.lastDuration) .. "</pre>"
                     )
                     -- print(task.combined_output)
                     -- refreshFn:stop()
@@ -225,8 +224,7 @@ function obj:menuItems()
         end
 
         local isRunning = task._task:isRunning()
-        local lastRunDate = task.lastStopTime == nil and "never" or os.date("%c", task.lastStopTime)
-        local lastDuration = task.lastDuration == nil and 0 or task.lastDuration
+        local lastRunDate = task.lastStartTime == nil and "never" or os.date("%c", task.lastStartTime)
         task.subMenu = {
             {
                 title = "Run" .. (task.prompts == nil and "" or "..."),
@@ -247,30 +245,32 @@ function obj:menuItems()
             {title = "-"}, -- --------------
             {
                 title = string.format("Last Run: %s", lastRunDate),
-                indent = 1,
                 disabled = true
             },
             {
-                title = string.format("Last Duration: %0.2f min", (lastDuration / 60)),
-                indent = 1,
+                title = string.format("Last Duration: %s", self.secondsToClock(task.lastDuration)),
                 disabled = true
             },
             {
                 title = string.format("Last Exit Code: %s", task.lastExitCode),
-                indent = 1,
                 disabled = true
             },
             {
                 title = string.format("Last Exit Reason: %s", task.lastExitReason),
-                indent = 1,
                 disabled = true
             }
         }
+
+        local activity = ""
+        if isRunning then
+            local duration = (os.time() - task.lastStartTime)
+            activity = string.format("(Running: %s)", self.secondsToClock(duration))
+        end
         -- Add this task to the main dropdown
         table.insert(
             entries,
             {
-                title = task.name .. (isRunning and " (running)" or ""),
+                title = task.name .. " " .. activity,
                 menu = task.subMenu
             }
         )
@@ -280,6 +280,19 @@ function obj:menuItems()
     print(hs.inspect(entries)) -- TODO debug remove
     print(hs.inspect(self.tasks)) -- TODO debug remove
     return entries
+end
+
+function obj.secondsToClock(seconds)
+    if seconds == nil then
+        return "00:00:00"
+    end
+    if seconds <= 0 then
+        return "00:00:00"
+    end
+    local hours = string.format("%02.f", math.floor(seconds / 3600))
+    local mins = string.format("%02.f", math.floor(seconds / 60 - (hours * 60)))
+    local secs = string.format("%02.f", math.floor(seconds - hours * 3600 - mins * 60))
+    return hours .. ":" .. mins .. ":" .. secs
 end
 
 function obj.newTextWindow(title)
