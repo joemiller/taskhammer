@@ -30,6 +30,7 @@ jobs:
             apt-get -qy update
             apt-get -qy --no-install-recommends install \
               build-essential \
+              ca-certificates \
               lua5.3 \
               lua5.3-dev \
               luarocks
