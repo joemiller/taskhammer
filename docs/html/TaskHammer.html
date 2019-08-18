@@ -1,0 +1,153 @@
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hammerspoon docs: TaskHammer</title>
+    <style type="text/css">
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      th { background-color: #DDDDDD; vertical-align: top; padding: 3px; }
+      td { width: 100%; background-color: #EEEEEE; vertical-align: top; padding: 3px; }
+      table { width: 100% ; border: 1px solid #0; text-align: left; }
+      section > table table td { width: 0; }
+    </style>
+    <link rel="stylesheet" href="docs.css" type="text/css" media="screen" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="./index.html">docs</a> &raquo; TaskHammer</h1>
+      <p>Run scripts from the Menu Bar</p>
+
+      </header>
+      <h3>API Overview</h3>
+      <ul>
+        <li>Variables - Configurable values</li>
+          <ul>
+            <li><a href="#tasks">tasks</a></li>
+          </ul>
+        <li>Methods - API calls which can only be made on an object returned by a constructor</li>
+          <ul>
+            <li><a href="#start">start</a></li>
+            <li><a href="#stop">stop</a></li>
+          </ul>
+      </ul>
+      <h3>API Documentation</h3>
+        <h4 class="documentation-section">Variables</h4>
+          <section id="tasks">
+            <a name="//apple_ref/cpp/Variable/tasks" class="dashAnchor"></a>
+            <h5><a href="#tasks">tasks</a></h5>
+            <table>
+              <tr>
+                <th>Signature</th>
+                <td><code>TaskHammer.tasks</code></td>
+              </tr>
+              <tr>
+                <th>Type</th>
+                <td>Variable</td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td><p>Table containing tasks and their configuration options. Each action is itself a table with the following keys:</p>
+<ul>
+<li>name - Required. A name for the task to be displayed in the menu bar dropdown list.</li>
+<li>cmd - Required. Path to executable or script to run.</li>
+<li>args - If given, a table in array format containing arguments to pass to cmd</li>
+<li>env - If given, a table in key=value format containing environment variables to be added to the cmd's execution environment. By default environment variables are inherited from Hammerspoon. Variables specified here are <em>added</em> to this set.</li>
+<li>prompts - If given, a table containing one or more prompts to display to the user. Inputs from these prompts are added to the environment before executing the cmd. Each prompt is itself a table with the following keys:<ul>
+<li>envvar - Required. The name of the environment variable to store the input into.</li>
+<li>description - A friendly message to display to the user describing the expected input value.
+Examples:
+<pre><code>tasks = {
+{
+   name = "simple task",
+   cmd = "/path/to/script.sh",
+},
+{
+   name = "task with arguments",
+   cmd = "/path/to/script.sh",
+   args = {"foo", "bar"},
+},
+{
+   name = "task with extra env vars",
+   cmd = "/path/to/script.sh",
+   env = {
+       FOO = "BAR",
+       BAZ = "blah"
+   }
+},
+{
+   name = "test prompt",
+   cmd = "/usr/bin/env",
+   prompts = {
+       {
+           envvar = "FOOBAR",
+           description = "1password pass"
+       },
+       {
+           envvar = "ANOTHER_ONE",
+           description = "another input"
+       }
+   }
+},
+{
+   name = "Restic Backup",
+   cmd = "/Users/joe/backup-scripts/backup.sh",
+   env = {
+       SSH_AUTH_SOCK = "/Users/joe/.gnupg/S.gpg-agent.ssh"
+   },
+   prompts = {
+       {
+           envvar = "RESTIC_PASSWORD",
+           description = "Please enter the Restic repository password"
+       }
+   }
+},
+}</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</td>
+              </tr>
+            </table>
+          </section>
+        <h4 class="documentation-section">Methods</h4>
+          <section id="start">
+            <a name="//apple_ref/cpp/Method/start" class="dashAnchor"></a>
+            <h5><a href="#start">start</a></h5>
+            <table>
+              <tr>
+                <th>Signature</th>
+                <td><code>TaskHammer:start()</code></td>
+              </tr>
+              <tr>
+                <th>Type</th>
+                <td>Method</td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td><p>Start the application. The menu bar icon will appear.</p>
+</td>
+              </tr>
+            </table>
+          </section>
+          <section id="stop">
+            <a name="//apple_ref/cpp/Method/stop" class="dashAnchor"></a>
+            <h5><a href="#stop">stop</a></h5>
+            <table>
+              <tr>
+                <th>Signature</th>
+                <td><code>TaskHammer:stop()</code></td>
+              </tr>
+              <tr>
+                <th>Type</th>
+                <td>Method</td>
+              </tr>
+              <tr>
+                <th>Description</th>
+                <td><p>Stop the application. The menu bar icon will disappear. All running tasks will be terminated.</p>
+</td>
+              </tr>
+            </table>
+          </section>
+  </body>
+</html>

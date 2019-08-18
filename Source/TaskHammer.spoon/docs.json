@@ -1,0 +1,76 @@
+[
+  {
+    "Command": [],
+    "Constant": [],
+    "Constructor": [],
+    "Deprecated": [],
+    "Field": [],
+    "Function": [],
+    "Method": [
+      {
+        "def": "TaskHammer:start()",
+        "desc": "Start the application. The menu bar icon will appear.",
+        "doc": "Start the application. The menu bar icon will appear.",
+        "name": "start",
+        "signature": "TaskHammer:start()",
+        "stripped_doc": "",
+        "type": "Method"
+      },
+      {
+        "def": "TaskHammer:stop()",
+        "desc": "Stop the application. The menu bar icon will disappear. All running tasks will be terminated.",
+        "doc": "Stop the application. The menu bar icon will disappear. All running tasks will be terminated.",
+        "name": "stop",
+        "signature": "TaskHammer:stop()",
+        "stripped_doc": "",
+        "type": "Method"
+      }
+    ],
+    "Variable": [
+      {
+        "def": "TaskHammer.tasks",
+        "desc": "Table containing tasks and their configuration options. Each action is itself a table with the following keys:",
+        "doc": "Table containing tasks and their configuration options. Each action is itself a table with the following keys:\n * name - Required. A name for the task to be displayed in the menu bar dropdown list.\n * cmd - Required. Path to executable or script to run.\n * args - If given, a table in array format containing arguments to pass to cmd\n * env - If given, a table in key=value format containing environment variables to be added to the cmd's execution environment. By default environment variables are inherited from Hammerspoon. Variables specified here are *added* to this set.\n * prompts - If given, a table containing one or more prompts to display to the user. Inputs from these prompts are added to the environment before executing the cmd. Each prompt is itself a table with the following keys:\n   * envvar - Required. The name of the environment variable to store the input into.\n   * description - A friendly message to display to the user describing the expected input value.\n```\ntasks = {\n    {\n        name = \"simple task\",\n        cmd = \"/path/to/script.sh\",\n    },\n    {\n        name = \"task with arguments\",\n        cmd = \"/path/to/script.sh\",\n        args = {\"foo\", \"bar\"},\n    },\n    {\n        name = \"task with extra env vars\",\n        cmd = \"/path/to/script.sh\",\n        env = {\n            FOO = \"BAR\",\n            BAZ = \"blah\"\n        }\n    },\n    {\n        name = \"test prompt\",\n        cmd = \"/usr/bin/env\",\n        prompts = {\n            {\n                envvar = \"FOOBAR\",\n                description = \"1password pass\"\n            },\n            {\n                envvar = \"ANOTHER_ONE\",\n                description = \"another input\"\n            }\n        }\n    },\n    {\n        name = \"Restic Backup\",\n        cmd = \"/Users/joe/backup-scripts/backup.sh\",\n        env = {\n            SSH_AUTH_SOCK = \"/Users/joe/.gnupg/S.gpg-agent.ssh\"\n        },\n        prompts = {\n            {\n                envvar = \"RESTIC_PASSWORD\",\n                description = \"Please enter the Restic repository password\"\n            }\n        }\n    },\n}\n```",
+        "name": "tasks",
+        "signature": "TaskHammer.tasks",
+        "stripped_doc": " * name - Required. A name for the task to be displayed in the menu bar dropdown list.\n * cmd - Required. Path to executable or script to run.\n * args - If given, a table in array format containing arguments to pass to cmd\n * env - If given, a table in key=value format containing environment variables to be added to the cmd's execution environment. By default environment variables are inherited from Hammerspoon. Variables specified here are *added* to this set.\n * prompts - If given, a table containing one or more prompts to display to the user. Inputs from these prompts are added to the environment before executing the cmd. Each prompt is itself a table with the following keys:\n   * envvar - Required. The name of the environment variable to store the input into.\n   * description - A friendly message to display to the user describing the expected input value.\n```\ntasks = {\n    {\n        name = \"simple task\",\n        cmd = \"/path/to/script.sh\",\n    },\n    {\n        name = \"task with arguments\",\n        cmd = \"/path/to/script.sh\",\n        args = {\"foo\", \"bar\"},\n    },\n    {\n        name = \"task with extra env vars\",\n        cmd = \"/path/to/script.sh\",\n        env = {\n            FOO = \"BAR\",\n            BAZ = \"blah\"\n        }\n    },\n    {\n        name = \"test prompt\",\n        cmd = \"/usr/bin/env\",\n        prompts = {\n            {\n                envvar = \"FOOBAR\",\n                description = \"1password pass\"\n            },\n            {\n                envvar = \"ANOTHER_ONE\",\n                description = \"another input\"\n            }\n        }\n    },\n    {\n        name = \"Restic Backup\",\n        cmd = \"/Users/joe/backup-scripts/backup.sh\",\n        env = {\n            SSH_AUTH_SOCK = \"/Users/joe/.gnupg/S.gpg-agent.ssh\"\n        },\n        prompts = {\n            {\n                envvar = \"RESTIC_PASSWORD\",\n                description = \"Please enter the Restic repository password\"\n            }\n        }\n    },\n}\n```",
+        "type": "Variable"
+      }
+    ],
+    "desc": "Run scripts from the Menu Bar",
+    "doc": "Run scripts from the Menu Bar\n",
+    "items": [
+      {
+        "def": "TaskHammer:start()",
+        "desc": "Start the application. The menu bar icon will appear.",
+        "doc": "Start the application. The menu bar icon will appear.",
+        "name": "start",
+        "signature": "TaskHammer:start()",
+        "stripped_doc": "",
+        "type": "Method"
+      },
+      {
+        "def": "TaskHammer:stop()",
+        "desc": "Stop the application. The menu bar icon will disappear. All running tasks will be terminated.",
+        "doc": "Stop the application. The menu bar icon will disappear. All running tasks will be terminated.",
+        "name": "stop",
+        "signature": "TaskHammer:stop()",
+        "stripped_doc": "",
+        "type": "Method"
+      },
+      {
+        "def": "TaskHammer.tasks",
+        "desc": "Table containing tasks and their configuration options. Each action is itself a table with the following keys:",
+        "doc": "Table containing tasks and their configuration options. Each action is itself a table with the following keys:\n * name - Required. A name for the task to be displayed in the menu bar dropdown list.\n * cmd - Required. Path to executable or script to run.\n * args - If given, a table in array format containing arguments to pass to cmd\n * env - If given, a table in key=value format containing environment variables to be added to the cmd's execution environment. By default environment variables are inherited from Hammerspoon. Variables specified here are *added* to this set.\n * prompts - If given, a table containing one or more prompts to display to the user. Inputs from these prompts are added to the environment before executing the cmd. Each prompt is itself a table with the following keys:\n   * envvar - Required. The name of the environment variable to store the input into.\n   * description - A friendly message to display to the user describing the expected input value.\n```\ntasks = {\n    {\n        name = \"simple task\",\n        cmd = \"/path/to/script.sh\",\n    },\n    {\n        name = \"task with arguments\",\n        cmd = \"/path/to/script.sh\",\n        args = {\"foo\", \"bar\"},\n    },\n    {\n        name = \"task with extra env vars\",\n        cmd = \"/path/to/script.sh\",\n        env = {\n            FOO = \"BAR\",\n            BAZ = \"blah\"\n        }\n    },\n    {\n        name = \"test prompt\",\n        cmd = \"/usr/bin/env\",\n        prompts = {\n            {\n                envvar = \"FOOBAR\",\n                description = \"1password pass\"\n            },\n            {\n                envvar = \"ANOTHER_ONE\",\n                description = \"another input\"\n            }\n        }\n    },\n    {\n        name = \"Restic Backup\",\n        cmd = \"/Users/joe/backup-scripts/backup.sh\",\n        env = {\n            SSH_AUTH_SOCK = \"/Users/joe/.gnupg/S.gpg-agent.ssh\"\n        },\n        prompts = {\n            {\n                envvar = \"RESTIC_PASSWORD\",\n                description = \"Please enter the Restic repository password\"\n            }\n        }\n    },\n}\n```",
+        "name": "tasks",
+        "signature": "TaskHammer.tasks",
+        "stripped_doc": " * name - Required. A name for the task to be displayed in the menu bar dropdown list.\n * cmd - Required. Path to executable or script to run.\n * args - If given, a table in array format containing arguments to pass to cmd\n * env - If given, a table in key=value format containing environment variables to be added to the cmd's execution environment. By default environment variables are inherited from Hammerspoon. Variables specified here are *added* to this set.\n * prompts - If given, a table containing one or more prompts to display to the user. Inputs from these prompts are added to the environment before executing the cmd. Each prompt is itself a table with the following keys:\n   * envvar - Required. The name of the environment variable to store the input into.\n   * description - A friendly message to display to the user describing the expected input value.\n```\ntasks = {\n    {\n        name = \"simple task\",\n        cmd = \"/path/to/script.sh\",\n    },\n    {\n        name = \"task with arguments\",\n        cmd = \"/path/to/script.sh\",\n        args = {\"foo\", \"bar\"},\n    },\n    {\n        name = \"task with extra env vars\",\n        cmd = \"/path/to/script.sh\",\n        env = {\n            FOO = \"BAR\",\n            BAZ = \"blah\"\n        }\n    },\n    {\n        name = \"test prompt\",\n        cmd = \"/usr/bin/env\",\n        prompts = {\n            {\n                envvar = \"FOOBAR\",\n                description = \"1password pass\"\n            },\n            {\n                envvar = \"ANOTHER_ONE\",\n                description = \"another input\"\n            }\n        }\n    },\n    {\n        name = \"Restic Backup\",\n        cmd = \"/Users/joe/backup-scripts/backup.sh\",\n        env = {\n            SSH_AUTH_SOCK = \"/Users/joe/.gnupg/S.gpg-agent.ssh\"\n        },\n        prompts = {\n            {\n                envvar = \"RESTIC_PASSWORD\",\n                description = \"Please enter the Restic repository password\"\n            }\n        }\n    },\n}\n```",
+        "type": "Variable"
+      }
+    ],
+    "name": "TaskHammer",
+    "stripped_doc": "",
+    "submodules": [],
+    "type": "Module"
+  }
+]

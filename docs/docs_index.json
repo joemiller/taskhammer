@@ -1,0 +1,25 @@
+[
+  {
+    "desc": "Run scripts from the Menu Bar",
+    "name": "TaskHammer",
+    "type": "Module"
+  },
+  {
+    "desc": "Table containing tasks and their configuration options. Each action is itself a table with the following keys:",
+    "module": "TaskHammer",
+    "name": "tasks",
+    "type": "Variable"
+  },
+  {
+    "desc": "Start the application. The menu bar icon will appear.",
+    "module": "TaskHammer",
+    "name": "start",
+    "type": "Method"
+  },
+  {
+    "desc": "Stop the application. The menu bar icon will disappear. All running tasks will be terminated.",
+    "module": "TaskHammer",
+    "name": "stop",
+    "type": "Method"
+  }
+]
