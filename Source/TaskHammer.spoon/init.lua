@@ -18,7 +18,7 @@ obj.logger = hs.logger.new("TaskHammer")
 
 --- TaskHammer.tasks
 --- Variable
---- Table containing tasks and their configuration options. Each action is itself a table with the following keys:
+--- Table containing tasks and their configuration options. Each task is itself a table with the following keys:
 ---
 ---  * name - Required. A name for the task to be displayed in the menu bar dropdown list.
 ---  * cmd - Required. Path to executable or script to run.
@@ -82,7 +82,7 @@ function obj:menuItems()
     self.logger.d("menuItems called, tasks:", hs.inspect(self.tasks))
 
     local entries = {
-        {title = "Tasks"},
+        {title = "TaskHammer", disabled = true},
         {title = "-"}
     }
 
@@ -103,7 +103,7 @@ function obj:menuItems()
 
         -- create a new webView for the task's output if one has not been created yet
         if task.outputView == nil then
-            task.outputView = newTextWindow(task.name)
+            task.outputView = self.newTextWindow(task.name)
             task.outputView:html("<pre>Output will appear after the task has Run to completion</pre>")
         end
 
@@ -196,7 +196,7 @@ function obj:menuItems()
             if task.prompts ~= nil then
                 local env = task._task:environment()
                 for _, p in pairs(task.prompts) do
-                    _, input = hs.dialog.textPrompt(p.envvar, p.description, "", "", "", true)
+                    local _, input = hs.dialog.textPrompt(p.envvar, p.description, "", "", "", true)
                     env[p.envvar] = input
                 end
                 task._task:setEnvironment(env)
@@ -282,7 +282,7 @@ function obj:menuItems()
     return entries
 end
 
-function newTextWindow(title)
+function obj.newTextWindow(title)
     local screenFrame = hs.screen.mainScreen():frame()
     local width = screenFrame["w"] / 3
     local height = screenFrame["h"] / 3
