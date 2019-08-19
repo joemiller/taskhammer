@@ -278,8 +278,8 @@ function obj:menuItems()
         ::continue::
     end
 
-    print(hs.inspect(entries)) -- TODO debug remove
-    print(hs.inspect(self.tasks)) -- TODO debug remove
+    self.logger.d(hs.inspect(entries))
+    self.logger.d(hs.inspect(self.tasks))
     return entries
 end
 
