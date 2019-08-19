@@ -81,8 +81,9 @@ obj.tasks = {}
 function obj:menuItems()
     self.logger.d("menuItems called, tasks:", hs.inspect(self.tasks))
 
+    local menuTitle = string.format("%s v%s", obj.name, obj.version)
     local entries = {
-        {title = "TaskHammer", disabled = true},
+        {title = menuTitle, disabled = true},
         {title = "-"}
     }
 
