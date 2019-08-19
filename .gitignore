@@ -1,3 +1,6 @@
 .vscode/
 .tmp/
 Attic
+.DS_Store
+circle-ssh-key
+circle-ssh-key*
