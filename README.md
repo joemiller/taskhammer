@@ -1,10 +1,12 @@
 TaskHammer.spoon
 ================
 
+[![CircleCI](https://circleci.com/gh/joemiller/taskhammer.svg?style=svg)](https://circleci.com/gh/joemiller/taskhammer)
+
 A [Hammerspoon](https://www.hammerspoon.org) module providing a convenient Menu Bar app
 for running tasks (scripts).
 
-TODO: screenshots here
+![screenshot](./screenshot.png)
 
 Install
 -------
