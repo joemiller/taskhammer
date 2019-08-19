@@ -100,7 +100,7 @@ jobs:
               ./Spoons       \
               ./Source/*/docs*
             git status
-            git commit -m 'circleci: new release'
+            git commit -m '[skip ci] circleci: new release'
             git push -u origin $CIRCLE_BRANCH
 
 workflows:
