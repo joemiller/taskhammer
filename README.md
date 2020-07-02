@@ -3,7 +3,7 @@ TaskHammer.spoon
 
 [![CircleCI](https://circleci.com/gh/joemiller/taskhammer.svg?style=svg)](https://circleci.com/gh/joemiller/taskhammer)
 
-A Hammerspoon](https://www.hammerspoon.org) module for running scripts from macOS's menu bar
+[Hammerspoon](https://www.hammerspoon.org) Spoon for running scripts in the macOS menu bar
 
 ![screenshot](./screenshot.png)
 
